@@ -3,7 +3,7 @@ This repository provides a demonstration of building real-time AI-powered WebSoc
 
 ## Architecture Overview
 
-![Architecture](images/openai.png)
+![Architecture](images/arch.drawio.png)
 
 The architecture consists of the following components:
 
