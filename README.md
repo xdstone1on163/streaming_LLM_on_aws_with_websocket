@@ -33,6 +33,9 @@ An OpenAI API key (sign up on the OpenAI website if you don't have one) and AWS 
 6. Run the client-side script locally to test the WebSocket connection and observe the AI-powered responses.
 ### Additional Customizations
 Feel free to explore and customize the project further based on your requirements:
+- Modify the Lambda function code to enhance or modify the AI processing logic.
+- Implement additional functionalities, such as error handling or security measures.
+- Integrate with other AI services or APIs to extend the capabilities of the WebSocket API.
 
 ### How to connect to your API gateway
 1. use wscat (https://docs.aws.amazon.com/zh_cn/apigateway/latest/developerguide/websocket-api-chat-app.html)
@@ -41,10 +44,6 @@ Feel free to explore and customize the project further based on your requirement
 ![Bedrock Example](images/bedrock-access-example.png)
 ![OpenAI Example](images/openai-access-example.png)
 
-
-- Modify the Lambda function code to enhance or modify the AI processing logic.
-- Implement additional functionalities, such as error handling or security measures.
-- Integrate with other AI services or APIs to extend the capabilities of the WebSocket API.
 ## Contributing
 Contributions to this project are welcome! If you have any ideas, improvements, or bug fixes, please open an issue or submit a pull request.
 
