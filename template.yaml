@@ -1,8 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 
-
-
 Resources:
   MyIAMRole:
     Type: AWS::IAM::Role
@@ -20,13 +18,6 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
       Policies:
-        - PolicyName: CloudWatchLogsFullAccess
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action: logs:*
-                Resource: '*'
         - PolicyName: AmazonS3FullAccess
           PolicyDocument:
             Version: '2012-10-17'
