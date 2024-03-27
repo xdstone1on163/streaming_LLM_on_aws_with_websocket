@@ -7,14 +7,18 @@ Resources:
   MyIAMRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: service-role
+      RoleName: service-role-apigateway-websocket-demo-2
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
           - Effect: Allow
             Principal:
-              Service: lambda.amazonaws.com
+              Service: 
+                  - "lambda.amazonaws.com"
+                  - "apigateway.amazonaws.com"
             Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
       Policies:
         - PolicyName: CloudWatchLogsFullAccess
           PolicyDocument:
@@ -23,26 +27,12 @@ Resources:
               - Effect: Allow
                 Action: logs:*
                 Resource: '*'
-        - PolicyName: AmazonDynamoDBFullAccess
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action: dynamodb:*
-                Resource: '*'
         - PolicyName: AmazonS3FullAccess
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
               - Effect: Allow
                 Action: s3:*
-                Resource: '*'
-        - PolicyName: AmazonSSMFullAccess
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action: ssm:*
                 Resource: '*'
         - PolicyName: AmazonAPIGatewayInvokeFullAccess
           PolicyDocument:
@@ -58,6 +48,13 @@ Resources:
               - Effect: Allow
                 Action: lambda:*
                 Resource: '*'
+        - PolicyName: executeAPIforWebsocketConnectionPost
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: execute-api:ManageConnections
+                Resource: 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${socketAPI}/dev/POST/@connections/*'
 
   socketAPI:
     Type: AWS::ApiGatewayV2::Api
@@ -116,7 +113,7 @@ Resources:
     DependsOn: MyIAMRole
     Properties:
       FunctionName: 'streaming-openai'
-      CodeUri: lambdas/streaming_lambda/
+      CodeUri: lambdas/streaming_openai_lambda/
       Role: !Sub 
         - "${role}"
         - role: !GetAtt MyIAMRole.Arn
@@ -152,7 +149,7 @@ Resources:
          OperationName: OpenaiRoute
          Target: !Sub "integrations/${OpenaiInteg}"
 
-  StreamingLambdaPermission:
+  StreamingOpenaiLambdaPermission:
     Type: AWS::Lambda::Permission
     DependsOn:
          - socketAPI
@@ -163,6 +160,55 @@ Resources:
       SourceAccount: !Sub '${AWS::AccountId}'
       SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${socketAPI}/*/openai'
   
+  StreamingBedrock:
+    Type: 'AWS::Serverless::Function'
+    DependsOn: MyIAMRole
+    Properties:
+      FunctionName: 'streaming-bedrock'
+      CodeUri: lambdas/streaming_bedrock_lambda/
+      Role: !Sub 
+        - "${role}"
+        - role: !GetAtt MyIAMRole.Arn
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.9
+      Timeout: 600
+      Environment:
+        Variables:
+          region: !Sub "${AWS::Region}"
+          api_endpoint: !Sub "https://${socketAPI}.execute-api.${AWS::Region}.amazonaws.com/dev"
+  
+  BedrockInteg:
+    Type: AWS::ApiGatewayV2::Integration
+    DependsOn: MyIAMRole
+    Properties:
+         ApiId: !Ref socketAPI
+         IntegrationType: AWS_PROXY
+         CredentialsArn: !Sub 
+          - "${role}"
+          - role: !GetAtt MyIAMRole.Arn
+         IntegrationUri: !Sub 
+          - "arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ConnectLambdaARN}/invocations"
+          - ConnectLambdaARN: !GetAtt StreamingBedrock.Arn
+  
+  BedrockRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+         RouteKey: bedrock
+         ApiId: !Ref socketAPI
+         OperationName: BedrockRoute
+         Target: !Sub "integrations/${BedrockInteg}"
+
+  StreamingBedrockLambdaPermission:
+    Type: AWS::Lambda::Permission
+    DependsOn:
+         - socketAPI
+    Properties:
+      FunctionName: !Ref StreamingBedrock
+      Action: 'lambda:InvokeFunction'
+      Principal: apigateway.amazonaws.com
+      SourceAccount: !Sub '${AWS::AccountId}'
+      SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${socketAPI}/*/bedrock'
+
   DisconnectInteg:
     Type: AWS::ApiGatewayV2::Integration
     DependsOn: MyIAMRole
@@ -226,14 +272,18 @@ Resources:
       StageName: dev
       Description: dev Stage
       ApiId: !Ref socketAPI
+      DeploymentId: !Ref Deployment
 
   Deployment:
     Type: AWS::ApiGatewayV2::Deployment
     DependsOn:
          - ConnectRoute
+         - DisconnectRoute
          - OpenaiRoute
+         - BedrockRoute
     Properties:
       ApiId: !Ref socketAPI
+
 
 
 Outputs:
