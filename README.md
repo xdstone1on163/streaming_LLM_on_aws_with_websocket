@@ -34,6 +34,14 @@ An OpenAI API key (sign up on the OpenAI website if you don't have one) and AWS 
 ### Additional Customizations
 Feel free to explore and customize the project further based on your requirements:
 
+### How to connect to your API gateway
+1. use wscat (https://docs.aws.amazon.com/zh_cn/apigateway/latest/developerguide/websocket-api-chat-app.html)
+2. send message with format : {"action":"openai or bedrock", "query":"the prompt you want to set"}
+3. see following 2 examples:
+![Bedrock Example](images/bedrock-access-example.png)
+![OpenAI Example](images/openai-access-example.png)
+
+
 - Modify the Lambda function code to enhance or modify the AI processing logic.
 - Implement additional functionalities, such as error handling or security measures.
 - Integrate with other AI services or APIs to extend the capabilities of the WebSocket API.
