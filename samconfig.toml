@@ -1,0 +1,9 @@
+version = 0.1
+[default.deploy.parameters]
+stack_name = "apigateway-websocket-LLM-demo"
+resolve_s3 = true
+s3_prefix = "apigateway-websocket-LLM-demo"
+region = "us-west-2"
+confirm_changeset = true
+capabilities = "CAPABILITY_NAMED_IAM"
+image_repositories = []
