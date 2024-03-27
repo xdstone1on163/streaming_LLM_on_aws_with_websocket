@@ -10,8 +10,12 @@ The architecture consists of the following components:
 - AWS WebSocket API Gateway: Serves as the entry point for WebSocket communication, facilitating real-time, bidirectional communication between clients and the backend.
 - AWS Lambda Functions:
     - Connect Lambda: Handles the initial connection request and establishes the WebSocket connection.
-    - Streaming OpenAI Lambda: Processes client requests, calls the LLM streaming API, and sends AI-powered responses back to clients.
-- OpenAI API: Provides AI capabilities and generates responses based on client queries.
+    - Streaming OpenAI Lambda: Processes client requests, calls the OpenAI streaming API, and sends AI-powered responses back to clients.
+    - Streaming Bedrock Lambda: Processes client requests, calls the Bedrock streaming API, and sends AI-powered responses back to clients.
+    - Disonnect Lambda: Handles the connection tear down.
+- OpenAI API: Provides OpenAI capabilities and generates responses based on client queries.
+- Bedrock API: Provides Bedrock Claude3 Sonnet capabilities and generates responses based on client queries.
+
 
 ## Getting Started
 To get started with the project, follow the steps outlined below:
