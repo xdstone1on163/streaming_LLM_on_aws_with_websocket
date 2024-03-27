@@ -73,7 +73,7 @@ Resources:
          ApiId: !Ref socketAPI
          IntegrationType: AWS_PROXY
          CredentialsArn: !Sub 
-          - "{role}"
+          - "${role}"
           - role: !GetAtt MyIAMRole.Arn
          IntegrationUri: !Sub 
           - "arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ConnectLambdaARN}/invocations"
@@ -94,7 +94,7 @@ Resources:
       FunctionName: 'connect-lambda'
       CodeUri: lambdas/connect_lambda/
       Role: !Sub 
-        - "{role}"
+        - "${role}"
         - role: !GetAtt MyIAMRole.Arn
       Handler: lambda_function.lambda_handler
       Runtime: python3.9
@@ -118,7 +118,7 @@ Resources:
       FunctionName: 'streaming-openai'
       CodeUri: lambdas/streaming_lambda/
       Role: !Sub 
-        - "{role}"
+        - "${role}"
         - role: !GetAtt MyIAMRole.Arn
       Handler: lambda_function.lambda_handler
       Runtime: python3.9
@@ -138,7 +138,7 @@ Resources:
          ApiId: !Ref socketAPI
          IntegrationType: AWS_PROXY
          CredentialsArn: !Sub 
-          - "{role}"
+          - "${role}"
           - role: !GetAtt MyIAMRole.Arn
          IntegrationUri: !Sub 
           - "arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ConnectLambdaARN}/invocations"
@@ -170,7 +170,7 @@ Resources:
          ApiId: !Ref socketAPI
          IntegrationType: AWS_PROXY
          CredentialsArn: !Sub 
-          - "{role}"
+          - "${role}"
           - role: !GetAtt MyIAMRole.Arn
          IntegrationUri: !Sub 
           - "arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ConnectLambdaARN}/invocations"
@@ -191,7 +191,7 @@ Resources:
       FunctionName: 'disconnect-lambda'
       CodeUri: lambdas/disconnect_lambda/
       Role: !Sub 
-        - "{role}"
+        - "${role}"
         - role: !GetAtt MyIAMRole.Arn
       Handler: lambda_function.lambda_handler
       Runtime: python3.9
