@@ -1,5 +1,5 @@
 # Real-Time AI-Powered WebSocket APIs
-This repository provides a demonstration of building real-time AI-powered WebSocket APIs using AWS API Gateway, Lambda, and OpenAI. The setup enables bidirectional communication between clients and the backend, with AI processing performed by OpenAI.
+This repository provides a demonstration of building real-time AI-powered WebSocket APIs using AWS API Gateway, Lambda to connect AWS Bedrock and OpenAI. The setup enables bidirectional communication between clients and the backend, with AI processing performed by AWS Bedrock and OpenAI.
 
 ## Architecture Overview
 
@@ -10,7 +10,7 @@ The architecture consists of the following components:
 - AWS WebSocket API Gateway: Serves as the entry point for WebSocket communication, facilitating real-time, bidirectional communication between clients and the backend.
 - AWS Lambda Functions:
     - Connect Lambda: Handles the initial connection request and establishes the WebSocket connection.
-    - Streaming OpenAI Lambda: Processes client requests, calls the OpenAI API, and sends AI-powered responses back to clients.
+    - Streaming OpenAI Lambda: Processes client requests, calls the LLM streaming API, and sends AI-powered responses back to clients.
 - OpenAI API: Provides AI capabilities and generates responses based on client queries.
 
 ## Getting Started
@@ -19,7 +19,7 @@ To get started with the project, follow the steps outlined below:
 ### Prerequisites
 An AWS account
 Basic knowledge of AWS services, including API Gateway, Lambda, and CloudFormation
-An OpenAI API key (sign up on the OpenAI website if you don't have one)
+An OpenAI API key (sign up on the OpenAI website if you don't have one) and AWS Bedrock Claude3 model access
 ### Installation and Setup
 1. Clone this repository to your local machine.
 2. Configure the AWS CLI with your AWS account credentials.
