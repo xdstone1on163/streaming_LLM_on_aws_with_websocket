@@ -16,6 +16,7 @@ Resources:
                   - "apigateway.amazonaws.com"
             Action: sts:AssumeRole
       ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonBedrockFullAccess
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
       Policies:
         - PolicyName: CloudWatchLogsFullAccess
