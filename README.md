@@ -24,15 +24,8 @@ To get started with the project, follow the steps outlined below:
 An AWS account
 Basic knowledge of AWS services, including API Gateway, Lambda, and CloudFormation
 An OpenAI API key (sign up on the OpenAI website if you don't have one) and AWS Bedrock Claude3 model access
-### Installation and Setup
-1. Clone this repository to your local machine.
-2. Configure the AWS CLI with your AWS account credentials.
-3. Modify the SAM template (template.yaml) with your desired configurations, such as function names, IAM roles, and OpenAI API key storage in AWS SSM Parameter Store.
-4. Deploy the SAM template using AWS CloudFormation. This will provision the necessary AWS resources, including the API Gateway and Lambda functions.
-5. Configure the client-side script (client.py) by providing the WebSocket API Gateway URL.
-6. Run the client-side script locally to test the WebSocket connection and observe the AI-powered responses.
 
-### How to connect to your API gateway
+### Installation and Setup
 1. clone the code repository to your local machine
 2. install AWS SAM tool (https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html)
 3. move to local machine's code directory and run : "sam deploy --guided --capabilities CAPABILITY_NAMED_IAM"
