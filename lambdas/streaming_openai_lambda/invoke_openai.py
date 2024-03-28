@@ -4,19 +4,17 @@ import openai
 
 class InvokeOpenai:
     def __init__(self, connectionId):
-        self.ssm = boto3.client("ssm")
         self.conn = boto3.client("apigatewaymanagementapi", endpoint_url=os.environ["api_endpoint"], region_name=os.environ["region"])
         self.params = {
             "Data":"",
             "ConnectionId": connectionId
         }
 
-    def read_ssm_parameter(self):
-        openai_key = self.ssm.get_parameter(Name=os.environ["openai_key"],WithDecryption=True)["Parameter"]["Value"]
-        return openai_key
+    def get_openai_key(self):
+        return os.environ["openai_key"]
     
     def call_openai(self, request, model="gpt-3.5-turbo"):
-        openai.api_key = self.read_ssm_parameter()
+        openai.api_key = self.get_openai_key()
         response = ""
         
         for resp in openai.ChatCompletion.create(
