@@ -28,7 +28,10 @@ An OpenAI API key (sign up on the OpenAI website if you don't have one) and AWS 
 ### Installation and Setup
 1. clone the code repository to your local machine
 2. install AWS SAM tool (https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html)
-3. move to local machine's code directory and run : "sam deploy --guided --capabilities CAPABILITY_NAMED_IAM"
+3. move to local machine's code directory and run
+```jsonc
+ sam deploy --guided --capabilities CAPABILITY_NAMED_IAM
+ ```
 4. accept sam output options and finally deploy the stack
 5. go to your AWS console and find streaming-openai lambda function's configuration and input your openai key:
 ![openai-key-change](images/openai-key-change.png)
@@ -39,7 +42,11 @@ An OpenAI API key (sign up on the OpenAI website if you don't have one) and AWS 
 9. see following 2 examples:
 ![Bedrock Example](images/bedrock-access-example.png)
 ![OpenAI Example](images/openai-access-example.png)
-10. use "sam delete" to delete the whole stack
+10. use:
+```jsonc
+sam delete
+```
+to delete the whole stack
 
 ### Additional Customizations
 Feel free to explore and customize the project further based on your requirements:
