@@ -46,6 +46,7 @@ An OpenAI API key (sign up on the OpenAI website if you don't have one) and AWS 
 9. see following 2 examples:
 ![Bedrock Example](images/bedrock-access-example.png)
 ![OpenAI Example](images/openai-access-example.png)
+10. use "sam delete" to delete the whole stack
 
 ### Additional Customizations
 Feel free to explore and customize the project further based on your requirements:
