@@ -117,7 +117,7 @@ Resources:
         - !Ref OpenaiLayer
       Environment:
         Variables:
-          openai_key: "openai_key"
+          openai_key: "change_to_your_own_openai_key"
           region: !Sub "${AWS::Region}"
           api_endpoint: !Sub "https://${socketAPI}.execute-api.${AWS::Region}.amazonaws.com/dev"
   
@@ -251,9 +251,9 @@ Resources:
   OpenaiLayer:
     Type: AWS::Serverless::LayerVersion
     Properties:
-      LayerName: 'openai-layer'
+      LayerName: 'openai-layer-py39'
       Description: Layer for openai
-      ContentUri: layers/openai/
+      ContentUri: layers/openai/openai-aws-lambda-layer-3.9.zip
       CompatibleRuntimes:
         - python3.9
     Metadata:
