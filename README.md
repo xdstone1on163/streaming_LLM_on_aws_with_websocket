@@ -41,7 +41,7 @@ An OpenAI API key (sign up on the OpenAI website if you don't have one) and AWS 
 ![openai-key-change](images/openai-key-change.png)
 6. go to your AWS console API Gateway service and find this newly created api in dev stage as following:
 ![apigateway-console-dev-stage](images/apigateway-console-dev-stage.png)
-7. use wscat -c to connect to your websocket endpoint (https://docs.aws.amazon.com/zh_cn/apigateway/latest/developerguide/websocket-api-chat-app.html) 
+7. use wscat -c to connect to your websocket endpoint (https://github.com/websockets/wscat) 
 8. send message with format : {"action":"openai or bedrock", "query":"the prompt you want to set"}
 9. see following 2 examples:
 ![Bedrock Example](images/bedrock-access-example.png)
