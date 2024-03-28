@@ -44,8 +44,8 @@ An OpenAI API key (sign up on the OpenAI website if you don't have one) and AWS 
   {"action":"bedrock", "query":"what model you are?"}
 ```
 9. see following 2 examples:
-![Bedrock Example](images/bedrock-access-example.png)
 ![OpenAI Example](images/openai-access-example.png)
+![Bedrock Example](images/bedrock-access-example.png)
 10. use:
 ```jsonc
   sam delete
